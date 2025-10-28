@@ -144,36 +144,23 @@ if (bleuButton && cardsContainer) {
 
 // Fonctionnalité 9 : Condensation de la Page via Touches Clavier (a, y, p, b)
 const body = document.querySelector('body');
-const mainContainer = document.querySelector('.container');
+const albumContainer = document.querySelector('.album'); // On cible le conteneur de l'album
 document.addEventListener('keydown', function (event) {
-
-  // 3. Retirer toutes les classes de colonnes et d'offset à chaque appui pour éviter l'accumulation
-  // On travaille sur le conteneur principal .container de la page
-  if (mainContainer) {
-    mainContainer.classList.remove('col-sm-4', 'offset-md-4', 'offset-md-8');
-  }
-
+  // permet de saisir une touche du clavier
   if (event.key === 'a') {
-    // 'a' : 4 colonnes à gauche (col-4)
-    if (mainContainer) {
-      mainContainer.classList.add('col-sm-4');
-      // NOTE: Utilisation de .col-sm-4 pour cibler correctement le conteneur bootstrap.
+    if (albumContainer) {
+      albumContainer.classList.add('col-md-4'); //voir bootstrap
     }
     console.log("Page condensée à gauche (a)");
   } else if (event.key === 'y') {
-    // 'y' : 4 colonnes au milieu (col-4, offset-4)
-    if (mainContainer) {
-      mainContainer.classList.add('col-sm-4', 'offset-md-4');
+    if (albumContainer) {
+      albumContainer.classList.add('col-md-4', 'offset-md-4');
     }
     console.log("Page condensée au centre (y)");
   } else if (event.key === 'p') {
-    // 'p' : 4 colonnes à droite (col-4, offset-8)
-    if (mainContainer) {
-      mainContainer.classList.add('col-sm-4', 'offset-md-8');
+    if (albumContainer) {
+      albumContainer.classList.add('col-md-4', 'offset-md-8');
     }
     console.log("Page condensée à droite (p)");
-  } else if (event.key === 'b') {
-    // 'b' : Tout redevient normal (déjà fait par le retrait des classes au début)
-    console.log("Page rétablie (b)");
   }
 });
