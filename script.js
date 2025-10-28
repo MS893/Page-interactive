@@ -134,10 +134,11 @@ if (bleuButton && cardsContainer) {
     console.log("on a cliqué sur le bouton bleu");
     // cible la première et la dernière card
     const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
-    const firstCardElement = allCardElements[allCardElements.length - 1];
+    const firstCardElement = allCardElements[0];
     // rotation vers la gauche
     cardsContainer.appendChild(firstCardElement);
   });
+  // cela ne fonctionne qu'une seule fois car il y a un redirect vers la page THP après la rotation
 }
 
 
