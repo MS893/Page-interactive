@@ -24,6 +24,7 @@ if (hamburgerButton) {
   hamburgerButton.addEventListener('click', function () {
     // La fonction toggle fait exactement ce qui est demandé :
     // si la classe est présente, elle l'enlève ; sinon, elle l'ajoute.
+    console.log("on a cliqué sur le hamburger");
     // 2. Pointer sur l'élément à cacher/afficher (navbarHeader)
     const navbarHeader = document.getElementById('navbarHeader');
     navbarHeader.classList.toggle('collapse');
@@ -42,6 +43,7 @@ if (firstCard) {
 
   if (firstCardEditButton) {
     firstCardEditButton.addEventListener('click', function () {
+      console.log("on a cliqué sur Edit sur la première card");
       // 3. Cibler le texte (p.card-text) à modifier (dans la première card)
       const firstCardText = firstCard.querySelector('.card-text');
 
@@ -68,6 +70,7 @@ if (secondCard) {
 
   if (secondCardEditButton && secondCardText) {
     secondCardEditButton.addEventListener('click', function () {
+      console.log("on a cliqué sur Edit sur la deuxième card donc [1]");
       // Utilisation du if/else pour toggle le style de couleur
       if (secondCardText.style.color === 'green') {
         secondCardText.style.color = ''; // Remet à la couleur par défaut (héritée), on pourrait aussi forcer à black
@@ -89,10 +92,10 @@ const bootstrapLink = document.querySelector('link[href*="bootstrap"]');
 
 if (navbar && bootstrapLink) {
   navbar.addEventListener('dblclick', function () {
+    console.log("on a double-cliqué sur la navbar");
     // Toggle l'attribut 'disabled' : si il est là (true), il est retiré (false), et inversement
     bootstrapLink.disabled = !bootstrapLink.disabled;
-    // pour inverser les choses, il faut double cliquer sur LS & Events (la navbar s'est déplacé vers le bas, mais invisible)
-
+    
     // Affichage pour confirmer l'action
     console.log(`Bootstrap ${bootstrapLink.disabled ? 'désactivé' : 'activé'}`);
   });
@@ -105,34 +108,33 @@ const allCards = document.querySelectorAll('.card');
 
 allCards.forEach(card => {
   // 2. Cibler le bouton "View" de la card courante
-  const viewButton = card.querySelector('.btn-success');
+  const viewButton = card.querySelector('.btn-success'); // Bouton pour réduire
+  const editButton = card.querySelector('.btn-outline-secondary'); // Bouton pour restaurer
 
-  if (viewButton) {
+  if (viewButton && editButton) {
     // 3. Cibler le texte (p) et l'image (img) pour les modifications
     const cardText = card.querySelector('.card-text');
     const cardImage = card.querySelector('.card-img-top');
 
-    // La fonctionnalité 6 est demandée au survol (mouseover/mouseout)
-    viewButton.addEventListener('mouseover', function () {
-      // a. Cacher/Afficher le texte (en utilisant collapse)
-      if (cardText) {
-        cardText.classList.toggle('collapse');
-      }
-      // b. Réduire/Rétablir la taille de l'image
-      if (cardImage) {
-        cardImage.style.width = '20%';
-      }
-    });
+    if (cardText && cardImage) {
+      // Étape 1 : Réduire la carte au survol du bouton "View"
+      viewButton.addEventListener('mouseover', function () {
+        // On s'assure de ne pas le faire plusieurs fois
+        if (!cardText.classList.contains('collapse')) {
+          cardText.classList.add('collapse');
+          cardImage.style.width = '20%';
+        }
+      });
 
-    viewButton.addEventListener('mouseout', function () {
-      // Rendre la fonctionnalité réversible
-      if (cardText) {
-        cardText.classList.toggle('collapse');
-      }
-      if (cardImage) {
-        cardImage.style.width = ''; // Rétablir la taille par défaut
-      }
-    });
+      // Étape 2 : Restaurer la carte au survol du bouton "Edit" (en faisant mouseover cela boucle en continu, je prends donc l'autre bouton pour agrandir la card)
+      editButton.addEventListener('mouseover', function() {
+        // On restaure uniquement si la carte est réduite
+        if (cardText.classList.contains('collapse')) {
+          cardText.classList.remove('collapse');
+          cardImage.style.width = ''; // Rétablir la taille par défaut
+        }
+      });
+    }
   }
 });
 
@@ -220,5 +222,3 @@ document.addEventListener('keydown', function (event) {
     console.log("Page rétablie (b)");
   }
 });
-
-
