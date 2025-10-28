@@ -134,6 +134,7 @@ allCards.forEach(card => {
     if (cardText && cardImage) {
       // Étape 1 : Réduire la carte au survol du bouton "View"
       viewButton.addEventListener('mouseover', function () {
+        console.log("la souris est sur le bouton View");
         // On s'assure de ne pas le faire plusieurs fois
         if (!cardText.classList.contains('collapse')) {
           cardText.classList.add('collapse');
@@ -141,8 +142,10 @@ allCards.forEach(card => {
         }
       });
 
-      // Étape 2 : Restaurer la carte au survol du bouton "Edit" (en faisant mouseover cela boucle en continu, je prends donc l'autre bouton pour agrandir la card)
+      // Étape 2 : Restaurer la carte au survol du bouton "Edit"
+      // (en faisant mouseover cela boucle en continu, je prends donc l'autre bouton pour agrandir la card)
       editButton.addEventListener('mouseover', function() {
+        console.log("la souris est sur le bouton Edit");
         // On restaure uniquement si la carte est réduite
         if (cardText.classList.contains('collapse')) {
           cardText.classList.remove('collapse');
@@ -156,21 +159,20 @@ allCards.forEach(card => {
 
 // Fonctionnalité 7 : Dernière card -> Première (avec le bouton gris ==> )
 // 1. Cibler le bouton (ici, le 2ème bouton du "album-buttons")
-const moveLastToFirstButton = document.querySelectorAll('.btn-secondary')[1]; // bouton gris
+const moveLastToFirstButton = document.querySelectorAll('.btn-secondary')[0]; // bouton gris
 
 // 2. Cibler le parent de toutes les cards (row)
 const cardsContainer = document.querySelector('.album .container .row');
 
-// 3. Cibler la dernière card
-const lastCard = allCards[allCards.length - 1];
-
-if (moveLastToFirstButton && cardsContainer && lastCard) {
+if (moveLastToFirstButton && cardsContainer) {
   moveLastToFirstButton.addEventListener('click', function (event) {
-    // Déplacer le dernier enfant (lastCard) avant le premier enfant (cardsContainer.firstChild)
-    // Attention : il faut s'assurer d'insérer avant le PREMIER élément .col-md-4 et non un éventuel text node
-    const firstCardElement = cardsContainer.querySelector('.col-md-4');
-
-    cardsContainer.insertBefore(lastCard.closest('.col-md-4'), firstCardElement);
+    console.log("on a cliqué sur le bouton gris");
+    // À chaque clic, on recalcule quelle est la première et la dernière carte
+    const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
+    const lastCardElement = allCardElements[allCardElements.length - 1];
+    
+    // On déplace la dernière carte pour qu'elle devienne la première
+    cardsContainer.prepend(lastCardElement);
   });
 }
 
