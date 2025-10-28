@@ -1,31 +1,21 @@
 // Fonctionnalité 1 et 1 bis : Compteur de Clics sur Footer
 let clickCount = 0;
-
-// 1. Pointer sur le footer
 const footer = document.querySelector('footer');
-
-// 2. Ajouter l'écouteur d'événement
 if (footer) {
   footer.addEventListener("click", function () {
     clickCount++;
-    // Fonctionnalité 1 : Afficher "clique"
     console.log("clique");
-    // Fonctionnalité 1-bis : Afficher le compteur
     console.log(`clic numéro ${clickCount}`);
   });
 }
 
 
 // Fonctionnalité 2 : Toggle du Hamburger Menu
-// 1. Pointer sur le bouton hamburger
 const hamburgerButton = document.querySelector('.navbar-toggler');
-
 if (hamburgerButton) {
   hamburgerButton.addEventListener('click', function () {
-    // La fonction toggle fait exactement ce qui est demandé :
     // si la classe est présente, elle l'enlève ; sinon, elle l'ajoute.
     console.log("on a cliqué sur le hamburger");
-    // 2. Pointer sur l'élément à cacher/afficher (navbarHeader)
     const navbarHeader = document.getElementById('navbarHeader');
     navbarHeader.classList.toggle('collapse');
   });
@@ -33,22 +23,17 @@ if (hamburgerButton) {
 
 
 // Fonctionnalité 3 : Texte Rouge sur Card 1
-// 1. Cibler la première card (via .card, on prend le premier élément, avec querySelectorAll, il faut le rang [0])
+// avec .card, on prend le premier élément, avec querySelectorAll, il faut le rang [0]
 // const firstCard = document.querySelectorAll('.card')[0]; // on peut le faire des 2 façons
 const firstCard = document.querySelector('.card');
-
 if (firstCard) {
-  // 2. Cibler le bouton "Edit" dans cette première card
   const firstCardEditButton = firstCard.querySelector('.btn-outline-secondary');
-
   if (firstCardEditButton) {
     firstCardEditButton.addEventListener('click', function () {
       console.log("on a cliqué sur Edit sur la première card");
-      // 3. Cibler le texte (p.card-text) à modifier (dans la première card)
       const firstCardText = firstCard.querySelector('.card-text');
-
       if (firstCardText) {
-        // Application irréversible du style (jusqu'à refresh de la page)
+        // modification de la couleur (jusqu'à refresh de la page)
         firstCardText.style.color = 'red';
       }
     });
@@ -57,25 +42,19 @@ if (firstCard) {
 
 
 // Fonctionnalité 4 : Toggle de Texte Vert sur Card 2
-// 1. Cibler la deuxième card (on prend le deuxième élément de la liste .card on est obligé de passer par All)
+// on prend le deuxième élément de la liste .card, on est donc obligé de passer par All
 const secondCard = document.querySelectorAll('.card')[1];
-
 if (secondCard) {
-  // 2. Cibler le bouton "Edit" dans cette deuxième card
-  // Note : On utilise querySelector pour trouver le premier (et seul) .btn-outline-secondary à l'intérieur de secondCard
+  // querySelector pour trouver le premier .btn-outline-secondary à l'intérieur de secondCard
   const secondCardEditButton = secondCard.querySelector('.btn-outline-secondary');
-
-  // 3. Cibler le texte à modifier
   const secondCardText = secondCard.querySelector('.card-text');
-
   if (secondCardEditButton && secondCardText) {
     secondCardEditButton.addEventListener('click', function () {
       console.log("on a cliqué sur Edit sur la deuxième card donc [1]");
-      // Utilisation du if/else pour toggle le style de couleur
       if (secondCardText.style.color === 'green') {
-        secondCardText.style.color = ''; // Remet à la couleur par défaut (héritée), on pourrait aussi forcer à black
+        secondCardText.style.color = ''; // couleur par défaut (héritée), on pourrait aussi forcer à black
       } else {
-        secondCardText.style.color = 'green'; // Passe au vert
+        secondCardText.style.color = 'green';
       }
     });
   }
@@ -83,35 +62,22 @@ if (secondCard) {
 
 
 // Fonctionnalité 5 : Toggle "Nucléaire" du CDN Bootstrap (Double-clic sur Navbar)
-// 1. Pointer sur la navbar
 const navbar = document.querySelector('.navbar');
-
-// 2. Pointer sur le lien CSS de Bootstrap (assumant qu'il est le seul <link> ou a un id/attribut spécifique)
-// Si le HTML est bien fait, on peut le trouver par son attribut 'href' ou en prenant le premier <link> (le HTML fourni ayant un seul link vers un CDN)
 const bootstrapLink = document.querySelector('link[href*="bootstrap"]');
-
-// 3. Cibler le titre "JS & Events" pour le rendre visible
 const navbarBrand = document.querySelector('.navbar-brand');
-
 if (navbar && bootstrapLink && navbarBrand) {
   navbar.addEventListener('dblclick', function () {
     console.log("on a double-cliqué sur la navbar");
-    // Toggle l'attribut 'disabled' : si il est là (true), il est retiré (false), et inversement
+    // Toggle à 'disabled' ? si oui il est retiré (false), sinon on fait l'inverse
     const isDisabled = !bootstrapLink.disabled;
     bootstrapLink.disabled = isDisabled;
-
-    // Si Bootstrap est désactivé, on s'assure que la navbar reste visible
+    // si Bootstrap est désactivé, on s'assure que la navbar reste visible
     if (isDisabled) {
-      navbar.style.backgroundColor = '#343a40'; // Une couleur de fond sombre
-      navbar.style.padding = '1rem'; // Un peu d'espace pour la rendre cliquable
-      navbarBrand.style.color = 'white'; // Forcer le texte en blanc
+      navbar.style.backgroundColor = '#343a40'; // je change la couleur pour qu'elle soit visible
     } else {
       // Si on réactive Bootstrap, on retire nos styles pour ne pas interférer
-      navbar.style.backgroundColor = '';
-      navbar.style.padding = '';
-      navbarBrand.style.color = ''; // Laisser Bootstrap gérer la couleur du texte
+      navbar.style.backgroundColor = ''; // couleur d'origine
     }
-    // Affichage pour confirmer l'action
     console.log(`Bootstrap ${bootstrapLink.disabled ? 'désactivé' : 'activé'}`);
   });
 }
@@ -159,13 +125,13 @@ allCards.forEach(card => {
 
 // Fonctionnalité 7 : Dernière card -> Première (avec le bouton gris ==> )
 // 1. Cibler le bouton (ici, le 2ème bouton du "album-buttons")
-const moveLastToFirstButton = document.querySelectorAll('.btn-secondary')[0]; // bouton gris
+const grisButton = document.querySelectorAll('.btn-secondary')[0]; // bouton gris
 
 // 2. Cibler le parent de toutes les cards (row)
 const cardsContainer = document.querySelector('.album .container .row');
 
-if (moveLastToFirstButton && cardsContainer) {
-  moveLastToFirstButton.addEventListener('click', function (event) {
+if (grisButton && cardsContainer) {
+  grisButton.addEventListener('click', function (event) {
     console.log("on a cliqué sur le bouton gris");
     // À chaque clic, on recalcule quelle est la première et la dernière carte
     const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
@@ -179,24 +145,17 @@ if (moveLastToFirstButton && cardsContainer) {
 
 // Fonctionnalité 8 : Première card -> Dernière (avec le bouton bleu <==)
 // 1. Cibler le bouton (ici, le 1er bouton du "album-buttons" qui est un <a>)
-const moveFirstToLastButton = document.querySelectorAll('.btn-primary')[0]; // bouton bleu
+const bleuButton = document.querySelectorAll('.btn-primary')[0]; // bouton bleu
+// cardsContainer est déjà déclaré plus haut
 
-// 2. Cibler la première card
-const firstCardElement = document.querySelectorAll('.col-md-4')[0]; // On prend le conteneur col-md-4 de la card
-
-if (moveFirstToLastButton && cardsContainer && firstCardElement) {
-  moveFirstToLastButton.addEventListener('click', function (event) {
-    // Indice 1 : Bloquer le comportement par défaut (l'ouverture d'une page)
-    event.preventDefault();
-
-    // Indice 2 : insertAfter(A) équivaut à insertBefore(A, B) où B est l'élément qui suit A
-    // Si B n'existe pas, A devient le dernier enfant.
-
+if (bleuButton && cardsContainer) {
+  bleuButton.addEventListener('click', function (event) {
+    console.log("on a cliqué sur le bouton bleu");
+    // À chaque clic, on recalcule quelle est la première et la dernière carte
+    const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
+    const lastCardElement = allCardElements[allCardElements.length - 1];
     // On déplace le PREMIER élément avant null, ce qui le met automatiquement à la fin
     cardsContainer.appendChild(firstCardElement);
-
-    // NOTE: appendChild() déplace l'élément si il existe déjà dans le DOM, le mettant à la fin du parent.
-    // C'est la solution la plus simple pour "insertAfter le dernier élément".
   });
 }
 
