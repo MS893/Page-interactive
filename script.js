@@ -127,28 +127,23 @@ if (grisButton && cardsContainer) {
 
 
 // Fonctionnalité 8 : Première card -> Dernière (avec le bouton bleu <==)
-// 1. Cibler le bouton (ici, le 1er bouton du "album-buttons" qui est un <a>)
 const bleuButton = document.querySelectorAll('.btn-primary')[0]; // bouton bleu
 // cardsContainer est déjà déclaré plus haut
-
 if (bleuButton && cardsContainer) {
   bleuButton.addEventListener('click', function (event) {
     console.log("on a cliqué sur le bouton bleu");
-    // À chaque clic, on recalcule quelle est la première et la dernière carte
+    // cible la première et la dernière card
     const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
-    const lastCardElement = allCardElements[allCardElements.length - 1];
-    // On déplace le PREMIER élément avant null, ce qui le met automatiquement à la fin
+    const firstCardElement = allCardElements[allCardElements.length - 1];
+    // rotation vers la gauche
     cardsContainer.appendChild(firstCardElement);
   });
 }
 
 
 // Fonctionnalité 9 : Condensation de la Page via Touches Clavier (a, y, p, b)
-// 1. Cibler le logo/nav (élément qui est focusable, ici on peut cibler le corps entier pour plus de fiabilité)
 const body = document.querySelector('body');
-const mainContainer = document.querySelector('.container'); // Le conteneur principal du contenu
-
-// 2. Écouter l'événement keydown sur le document (meilleure pratique pour les raccourcis clavier)
+const mainContainer = document.querySelector('.container');
 document.addEventListener('keydown', function (event) {
 
   // 3. Retirer toutes les classes de colonnes et d'offset à chaque appui pour éviter l'accumulation
