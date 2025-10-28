@@ -84,39 +84,27 @@ if (navbar && bootstrapLink && navbarBrand) {
 
 
 // Fonctionnalité 6 : Réduction de Card au survol de "View"
-// 1. Cibler toutes les cards
 const allCards = document.querySelectorAll('.card');
-
 allCards.forEach(card => {
-  // 2. Cibler le bouton "View" de la card courante
   const viewButton = card.querySelector('.btn-success'); // Bouton pour réduire
   const editButton = card.querySelector('.btn-outline-secondary'); // Bouton pour restaurer
-
   if (viewButton && editButton) {
-    // 3. Cibler le texte (p) et l'image (img) pour les modifications
     const cardText = card.querySelector('.card-text');
     const cardImage = card.querySelector('.card-img-top');
-
     if (cardText && cardImage) {
-      // Étape 1 : Réduire la carte au survol du bouton "View"
       viewButton.addEventListener('mouseover', function () {
         console.log("la souris est sur le bouton View");
-        // On s'assure de ne pas le faire plusieurs fois
         if (!cardText.classList.contains('collapse')) {
           cardText.classList.add('collapse');
           cardImage.style.width = '20%';
         }
       });
-
-      // Étape 2 : Restaurer la carte au survol du bouton "Edit"
-      // (en faisant mouseover cela boucle en continu, je prends donc l'autre bouton pour agrandir la card)
+      // en faisant mouseover cela boucle en continu, je prends donc le bouton EDIT pour agrandir la card
       editButton.addEventListener('mouseover', function() {
+        // on pourrait tester pour savoir si c'est collapse, mais on peut le faire systématiquement
         console.log("la souris est sur le bouton Edit");
-        // On restaure uniquement si la carte est réduite
-        if (cardText.classList.contains('collapse')) {
-          cardText.classList.remove('collapse');
-          cardImage.style.width = ''; // Rétablir la taille par défaut
-        }
+        cardText.classList.remove('collapse');
+        cardImage.style.width = '';
       });
     }
   }
@@ -124,20 +112,15 @@ allCards.forEach(card => {
 
 
 // Fonctionnalité 7 : Dernière card -> Première (avec le bouton gris ==> )
-// 1. Cibler le bouton (ici, le 2ème bouton du "album-buttons")
-const grisButton = document.querySelectorAll('.btn-secondary')[0]; // bouton gris
-
-// 2. Cibler le parent de toutes les cards (row)
+const grisButton = document.querySelectorAll('.btn-secondary')[0]; // secondary = bouton gris
 const cardsContainer = document.querySelector('.album .container .row');
-
 if (grisButton && cardsContainer) {
   grisButton.addEventListener('click', function (event) {
     console.log("on a cliqué sur le bouton gris");
-    // À chaque clic, on recalcule quelle est la première et la dernière carte
+    // on cible la première et la dernière card
     const allCardElements = cardsContainer.querySelectorAll('.col-md-4');
     const lastCardElement = allCardElements[allCardElements.length - 1];
-    
-    // On déplace la dernière carte pour qu'elle devienne la première
+    // rotation vers la droite
     cardsContainer.prepend(lastCardElement);
   });
 }
