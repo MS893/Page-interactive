@@ -19,20 +19,21 @@ if (footer) {
 // Fonctionnalité 2 : Toggle du Hamburger Menu
 // 1. Pointer sur le bouton hamburger
 const hamburgerButton = document.querySelector('.navbar-toggler');
-// 2. Pointer sur l'élément à cacher/afficher (navbarHeader)
-const navbarHeader = document.getElementById('navbarHeader');
 
-if (hamburgerButton && navbarHeader) {
+if (hamburgerButton) {
   hamburgerButton.addEventListener('click', function () {
     // La fonction toggle fait exactement ce qui est demandé :
     // si la classe est présente, elle l'enlève ; sinon, elle l'ajoute.
+    // 2. Pointer sur l'élément à cacher/afficher (navbarHeader)
+    const navbarHeader = document.getElementById('navbarHeader');
     navbarHeader.classList.toggle('collapse');
   });
 }
 
 
 // Fonctionnalité 3 : Texte Rouge sur Card 1
-// 1. Cibler la première card (via .card, on prend le premier élément)
+// 1. Cibler la première card (via .card, on prend le premier élément, avec querySelectorAll, il faut le rang [0])
+// const firstCard = document.querySelectorAll('.card')[0];
 const firstCard = document.querySelector('.card');
 
 if (firstCard) {
@@ -45,7 +46,7 @@ if (firstCard) {
       const firstCardText = firstCard.querySelector('.card-text');
 
       if (firstCardText) {
-        // Application irréversible du style
+        // Application irréversible du style (jusqu'à refresh de la page)
         firstCardText.style.color = 'red';
       }
     });
