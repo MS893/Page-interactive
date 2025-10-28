@@ -33,7 +33,7 @@ if (hamburgerButton) {
 
 // Fonctionnalité 3 : Texte Rouge sur Card 1
 // 1. Cibler la première card (via .card, on prend le premier élément, avec querySelectorAll, il faut le rang [0])
-// const firstCard = document.querySelectorAll('.card')[0];
+// const firstCard = document.querySelectorAll('.card')[0]; // on peut le faire des 2 façons
 const firstCard = document.querySelector('.card');
 
 if (firstCard) {
@@ -55,7 +55,7 @@ if (firstCard) {
 
 
 // Fonctionnalité 4 : Toggle de Texte Vert sur Card 2
-// 1. Cibler la deuxième card (on prend le deuxième élément de la liste .card)
+// 1. Cibler la deuxième card (on prend le deuxième élément de la liste .card on est obligé de passer par All)
 const secondCard = document.querySelectorAll('.card')[1];
 
 if (secondCard) {
@@ -70,7 +70,7 @@ if (secondCard) {
     secondCardEditButton.addEventListener('click', function () {
       // Utilisation du if/else pour toggle le style de couleur
       if (secondCardText.style.color === 'green') {
-        secondCardText.style.color = ''; // Remet à la couleur par défaut (héritée)
+        secondCardText.style.color = ''; // Remet à la couleur par défaut (héritée), on pourrait aussi forcer à black
       } else {
         secondCardText.style.color = 'green'; // Passe au vert
       }
@@ -91,6 +91,7 @@ if (navbar && bootstrapLink) {
   navbar.addEventListener('dblclick', function () {
     // Toggle l'attribut 'disabled' : si il est là (true), il est retiré (false), et inversement
     bootstrapLink.disabled = !bootstrapLink.disabled;
+    // pour inverser les choses, il faut double cliquer sur LS & Events (la navbar s'est déplacé vers le bas, mais invisible)
 
     // Affichage pour confirmer l'action
     console.log(`Bootstrap ${bootstrapLink.disabled ? 'désactivé' : 'activé'}`);
