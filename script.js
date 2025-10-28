@@ -1,4 +1,4 @@
-// Fonctionnalité 1 & 1-bis : Compteur de Clics sur Footer
+// Fonctionnalité 1 et 1 bis : Compteur de Clics sur Footer
 let clickCount = 0;
 
 // 1. Pointer sur le footer
@@ -9,8 +9,7 @@ if (footer) {
   footer.addEventListener("click", function () {
     clickCount++;
     // Fonctionnalité 1 : Afficher "clique"
-    // console.log("clique");
-
+    console.log("clique");
     // Fonctionnalité 1-bis : Afficher le compteur
     console.log(`clic numéro ${clickCount}`);
   });
