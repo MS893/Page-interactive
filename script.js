@@ -90,12 +90,27 @@ const navbar = document.querySelector('.navbar');
 // Si le HTML est bien fait, on peut le trouver par son attribut 'href' ou en prenant le premier <link> (le HTML fourni ayant un seul link vers un CDN)
 const bootstrapLink = document.querySelector('link[href*="bootstrap"]');
 
-if (navbar && bootstrapLink) {
+// 3. Cibler le titre "JS & Events" pour le rendre visible
+const navbarBrand = document.querySelector('.navbar-brand');
+
+if (navbar && bootstrapLink && navbarBrand) {
   navbar.addEventListener('dblclick', function () {
     console.log("on a double-cliqué sur la navbar");
     // Toggle l'attribut 'disabled' : si il est là (true), il est retiré (false), et inversement
-    bootstrapLink.disabled = !bootstrapLink.disabled;
-    
+    const isDisabled = !bootstrapLink.disabled;
+    bootstrapLink.disabled = isDisabled;
+
+    // Si Bootstrap est désactivé, on s'assure que la navbar reste visible
+    if (isDisabled) {
+      navbar.style.backgroundColor = '#343a40'; // Une couleur de fond sombre
+      navbar.style.padding = '1rem'; // Un peu d'espace pour la rendre cliquable
+      navbarBrand.style.color = 'white'; // Forcer le texte en blanc
+    } else {
+      // Si on réactive Bootstrap, on retire nos styles pour ne pas interférer
+      navbar.style.backgroundColor = '';
+      navbar.style.padding = '';
+      navbarBrand.style.color = ''; // Laisser Bootstrap gérer la couleur du texte
+    }
     // Affichage pour confirmer l'action
     console.log(`Bootstrap ${bootstrapLink.disabled ? 'désactivé' : 'activé'}`);
   });
